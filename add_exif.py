@@ -4,7 +4,7 @@ import piexif
 import os
 import time
 
-folder = './'
+folder = '../P Whatsapp'
 
 def get_datetime(filename):
     date_str = filename.split('-')[1]
@@ -28,12 +28,12 @@ for i, filename in enumerate(filenames):
 		if filename.endswith('mp4') or filename.endswith('3gp'):
 			date = get_datetime(filename)
 			modTime = time.mktime(date.timetuple())
-			os.utime(folder + filename, (modTime, modTime))
+			os.utime(folder + '/' + filename, (modTime, modTime))
 
 		elif filename.endswith('jpg') or filename.endswith('jpeg'):
 			exif_dict = {'Exif': {piexif.ExifIFD.DateTimeOriginal: get_date(filename)}}
 			exif_bytes = piexif.dump(exif_dict)
-			piexif.insert(exif_bytes, folder + filename)
+			piexif.insert(exif_bytes, folder + '/' + filename)
 
 		print('{}: {}/{}'.format(filename, i + 1, l))
 	except:
